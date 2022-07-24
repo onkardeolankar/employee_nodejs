@@ -30,16 +30,16 @@ async function createConnection() {
 const client = await createConnection();
 
 app.get("/", function (req, res) {
-    res.send("Welcome to our World");
+    res.send("Welcome to our Employee System");
   });
 
 app.get("/employees",async function (req, res) {
-    const movies = await client
+    const employees = await client
     .db("b32we")
-    .collection("movies")
+    .collection("employees")
     .find({})
     .toArray();
-    res.send(movies);
+    res.send(employees);
 
 });
 
@@ -48,13 +48,13 @@ app.put("/employees/:id", async function (req, res) {
     const bigd= req.body;
     const nanu = await client
     .db("b32we")
-    .collection("movies")
+    .collection("employees")
     .updateOne({ id: id }, { $set: bigd });
     res.send(nanu);
 
 });
 
-app.get("/movies/:id", async function (req, res) {
+app.get("/employees/:id", async function (req, res) {
   const { id } = req.params;
   console.log(req.params, id);
 
