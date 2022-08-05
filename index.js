@@ -75,5 +75,21 @@ app.post("/employees", express.json(), async function (req, res) {
     .insertMany(data);
   res.send(result);
 });
+
+app.delete("/:id", async function (req, res) {
+  const { id } = req.params;
+  console.log(req.params, id);
+
+  // const movie =movies.find((mv) => mv.id == id);
+  //  res.send(movie);
+  const resulting = await client
+  .db("b32we")
+  .collection("employees")
+  .deleteOne(id);
+  resulting.deletedCount > 0
+  ? res.send({ msg: "Movie deleted sucessfully"})
+  : res.send({ msg: "Movie not found"});
+});
+
 app.listen(PORT, () => console.log(`App Started in ${PORT}`));
 
